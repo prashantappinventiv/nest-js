@@ -1,9 +1,27 @@
+// import { Module } from '@nestjs/common';
+// import { LoggerModule as PinoLoggerModule } from 'nestjs-pino';
+
+// @Module({
+//   imports: [
+//     PinoLoggerModule.forRoot({
+//       pinoHttp: {
+//         transport: {
+//           target: 'pino-pretty',
+//           options: {
+//             singleLine: true,
+//           },
+//         },
+//       },
+//     }),
+//   ],
+// })
+// export class LoggerModule {}
 import { Module } from '@nestjs/common';
 import { utilities as nestWinstonModuleUtilities, WinstonModule } from 'nest-winston';
 import * as winston from 'winston';
 import * as moment from 'moment';
 import * as DailyRotateFile from 'winston-daily-rotate-file';
-import { CONSTANT } from 'src/common/constant';
+import { LOGGER_NAME } from 'src/constants/services';
 
 @Module({
   imports: [
@@ -17,7 +35,7 @@ import { CONSTANT } from 'src/common/constant';
           format: winston.format.combine(
             winston.format.timestamp(),
             winston.format.ms(),
-            nestWinstonModuleUtilities.format.nestLike(CONSTANT.LOGGER_NAME, {
+            nestWinstonModuleUtilities.format.nestLike(LOGGER_NAME.LOGGER, {
               colors: true,
               prettyPrint: true,
             }),
@@ -32,7 +50,7 @@ import { CONSTANT } from 'src/common/constant';
           format: winston.format.combine(
             winston.format.timestamp(),
             winston.format.ms(),
-            nestWinstonModuleUtilities.format.nestLike(CONSTANT.LOGGER_NAME, {
+            nestWinstonModuleUtilities.format.nestLike(LOGGER_NAME.LOGGER, {
               colors: true,
               prettyPrint: true,
             }),

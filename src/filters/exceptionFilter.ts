@@ -1,6 +1,12 @@
-import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus } from '@nestjs/common';
+import {
+  ArgumentsHost,
+  Catch,
+  ExceptionFilter,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 import { HttpAdapterHost } from '@nestjs/core';
-import { RESPONSE_MSG } from 'src/common/responses';
+import { RESPONSE_MSG } from '../constants/services';
 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
@@ -10,7 +16,10 @@ export class AllExceptionsFilter implements ExceptionFilter {
     const { httpAdapter } = this.httpAdapterHost;
 
     const ctx = host.switchToHttp();
-    const httpStatus = exception instanceof HttpException ? exception.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
+    const httpStatus =
+      exception instanceof HttpException
+        ? exception.getStatus()
+        : HttpStatus.INTERNAL_SERVER_ERROR;
 
     let errorMessage = RESPONSE_MSG.ERROR;
 
@@ -35,13 +44,21 @@ export class AllExceptionsFilter implements ExceptionFilter {
     httpAdapter.reply(ctx.getResponse(), responseBody, httpStatus);
 
     console.log('');
-    console.log('*********************************RESPONSE ERROR START*************************************');
+    console.log(
+      '*********************************RESPONSE ERROR START*************************************',
+    );
     console.log('path=======>', responseBody.path);
     console.log('status=======>', responseBody.status);
     console.log('error=======>', JSON.stringify(responseBody.error));
     console.log('message=======>', JSON.stringify(responseBody.message));
     console.log('TIME============>', new Date());
-    console.log('Response Time=======>', new Date().getTime() - ctx.getRequest()?.startTime?.getTime(), 'MS');
-    console.log('********************************RESPONSE ERROR ENDS******************************************');
+    console.log(
+      'Response Time=======>',
+      new Date().getTime() - ctx.getRequest()?.startTime?.getTime(),
+      'MS',
+    );
+    console.log(
+      '********************************RESPONSE ERROR ENDS******************************************',
+    );
   }
 }
