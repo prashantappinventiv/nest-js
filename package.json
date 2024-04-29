@@ -1,0 +1,50 @@
+{
+  "name": "gro-nest-api",
+  "version": "0.0.1",
+  "description": "",
+  "author": "Team GrodotDigital",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "build": "nest build",
+    "local": "npm run build && TZ=UTC NODE_ENV=local nest start --debug --watch",
+    "dev": "npm run build && TZ=UTC NODE_ENV=dev nest start --debug --watch"
+  },
+  "dependencies": {
+    "@nestjs/class-transformer": "^0.4.0",
+    "@nestjs/common": "^10.0.0",
+    "@nestjs/config": "^3.1.1",
+    "@nestjs/core": "^10.3.0",
+    "@nestjs/jwt": "^10.2.0",
+    "@nestjs/passport": "^10.0.3",
+    "@nestjs/platform-express": "^10.0.0",
+    "@nestjs/schedule": "^4.0.0",
+    "@nestjs/swagger": "^7.3.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
+    "dotenv": "^16.3.1",
+    "install": "^0.13.0",
+    "ioredis": "^5.3.2",
+    "moment": "^2.30.1",
+    "mongoose": "^8.0.4",
+    "nest-winston": "^1.9.4",
+    "npm": "^10.3.0",
+    "passport-http": "^0.3.0",
+    "passport-jwt": "^4.0.1",
+    "rxjs": "^7.8.1",
+    "winston": "^3.11.0",
+    "winston-daily-rotate-file": "^4.7.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/node": "^20.10.5",
+    "@types/passport-http": "^0.3.11",
+    "@types/passport-jwt": "^4.0.1",
+    "eslint": "^8.56.0",
+    "prettier": "^3.1.1",
+    "ts-loader": "^9.4.3",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.1.3"
+  }
+}
