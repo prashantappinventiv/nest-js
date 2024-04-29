@@ -1,7 +1,6 @@
 import { Body, Controller, Post, Res, UseGuards } from '@nestjs/common';
 import {
   ApiBasicAuth,
-  ApiBearerAuth,
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
@@ -20,7 +19,6 @@ export class ClientOnBoardingController {
 
   @Post('/signup')
   @ApiOperation({ summary: 'sign api' })
-  @ApiBasicAuth()
   @UseGuards(AuthGuard('basic'))
   async signup(
     @Body() createOnboardingDto: CreateOnboardingDto,

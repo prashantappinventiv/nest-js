@@ -1,9 +1,9 @@
 export const ENUM = {
   COLLECTIONS: {
-    CLIENT: 'client',
+    USER: 'user',
   },
 
-  CLIENT_PROFILE_STATUS: {
+  USER_PROFILE_STATUS: {
     ACTIVE: 1,
     BLOCKED: 4,
     DELETED: 3,

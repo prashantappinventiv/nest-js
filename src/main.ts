@@ -5,7 +5,7 @@ import * as express from 'express';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 import { AppModule } from './app.module';
 import { AllExceptionsFilter } from './filters/exceptionFilter';
-import { LoggerMiddleware } from './middlewares/logging.middleware';
+import { LoggerMiddleware } from './interceptor/logging.middleware';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { Swagger } from './common/constant';
 

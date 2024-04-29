@@ -5,18 +5,24 @@ import { BasicStrategy } from './local.strategy';
 import { PassportModule } from '@nestjs/passport';
 import { CONSTANT } from 'src/common/constant';
 import { HttpResponse } from 'src/common/httpResponse';
-import { EntityModule } from 'src/entity/entity.module';
-import { JwtClientStrategy } from './jwt.strategy';
+import { JwtStrategy } from './jwt.strategy';
+import { ClientOnBoardingService } from 'src/modules/client/on-boarding/on-boarding.service';
+import { UsersRepository } from 'src/modules/client/on-boarding/user.repository';
+import { UserDocument, UserSchema } from 'src/model/user.schema';
+import { DatabaseModule } from 'src/providers/database';
+
 
 @Module({
   imports: [
     JwtModule.register({
       secret: CONSTANT.JWT_PASSWORD,
     }),
-    PassportModule,
-    EntityModule,
+    PassportModule,DatabaseModule,
+    DatabaseModule.forFeature([
+      { name: UserDocument.name, schema: UserSchema },
+    ]),
   ],
-  providers: [GuardService, JwtClientStrategy, HttpResponse, BasicStrategy],
+  providers: [GuardService, JwtStrategy, HttpResponse, BasicStrategy,ClientOnBoardingService,UsersRepository,UserDocument],
   exports: [JwtModule],
 })
 export class GuardModule {}
