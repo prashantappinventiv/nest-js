@@ -23,6 +23,7 @@ export class AuthController {
     @CurrentUser() auth: UserDocument,
     @Res({ passthrough: true }) response: Response,
   ) {
+    console.log("inside login")
     const jwt = await this.authService.login(auth, response);
     response.send(jwt);
   }
