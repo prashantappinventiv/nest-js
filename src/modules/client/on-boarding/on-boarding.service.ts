@@ -21,7 +21,7 @@ export class ClientOnBoardingService {
 
       const createClient = Object.assign(createOnboardingDto);
 
-      const data = await this.usersRepository.create(createClient);
+      await this.usersRepository.create(createClient);
 
       return [RESPONSE_DATA.SUCCESS];
     } catch (error) {

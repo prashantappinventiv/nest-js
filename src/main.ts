@@ -6,8 +6,10 @@ import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 import { AppModule } from './app.module';
 import { AllExceptionsFilter } from './filters/exceptionFilter';
 import { LoggerMiddleware } from './interceptor/logging.middleware';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { Swagger } from './common/constant';
+import { CONSTANT, PROTO, Swagger } from './common/constant';
+import { join } from 'path';
 
 async function bootstrap() {
   // Create the NestJS application
@@ -70,6 +72,40 @@ async function bootstrap() {
   // Start the NestJS application
   await app.listen(nestPort);
   console.info(`Nest server listening on Port: ${nestPort}`);
+
+  // GRPC connection setup starts here
+
+  // Retrieve the GRPC port from the configuration or use a default value
+  const grpcPort: number = configService.get<number>('GRPC_PORT') || 7001;
+  // Create a NestJS microservice for GRPC with specified options
+  const grpcServer = await NestFactory.createMicroservice<MicroserviceOptions>(
+    AppModule,
+    {
+      transport: Transport.GRPC,
+      options: {
+        url: `localhost:${grpcPort}`,
+        package: PROTO.PACKAGE_NAME,
+        protoPath: join(__dirname, CONSTANT.PROTO_FILE_PATH('user.proto')),
+        loader: {
+          keepCase: true,
+          longs: String,
+          enums: String,
+          defaults: true,
+          oneofs: true,
+        },
+        keepalive: {
+          keepaliveTimeoutMs: 5000,
+          keepaliveTimeMs: 10000,
+          keepalivePermitWithoutCalls: 1,
+          http2MaxPingsWithoutData: 0,
+        },
+      },
+    },
+  );
+
+  // Start the GRPC microservice
+  await grpcServer.listen();
+  console.log(`gRPC server listening on Port: ${grpcPort}`);
 }
 
 // Call the bootstrap function to start the application
