@@ -1,9 +1,15 @@
-import { IsEmail, IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
 import { Transform } from 'class-transformer';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateOnboardingDto {
-  
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
@@ -22,11 +28,18 @@ export class CreateOnboardingDto {
   @IsNotEmpty()
   @Transform((param) => param.value.toLowerCase())
   email: string;
-
 }
 
 export class GetUserDto {
   @IsString()
   @IsNotEmpty()
-  _id: string;
+  id: string;
+}
+
+export class UpdateProfileDto {
+  @IsString()
+  @IsOptional()
+  username?: string;
+
+  // Add other properties you want to update
 }
